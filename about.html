@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Varsity Friends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #FF8C00;
+            --secondary-orange: #FFA500;
+            --primary-navy: #001F3F;
+            --secondary-navy: #003366;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-gray);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,31,63,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-navy);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .apply-btn {
+            background: var(--primary-orange);
+            color: var(--white) !important;
+            padding: 0.8rem 1.5rem !important;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,140,0,0.3);
+        }
+
+        .apply-btn::after {
+            display: none !important;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+            padding: 5rem 0;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: var(--primary-orange);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 4rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px rgba(0,31,63,0.08);
+        }
+
+        .story-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .story-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-orange);
+            border-radius: 2px;
+        }
+
+        .story-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .story-image {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/></svg>') center/200px repeat;
+            opacity: 0.3;
+        }
+
+        /* Mission, Vision, Values Cards */
+        .mvc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .mvc-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,31,63,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mvc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-orange);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .mvc-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mvc-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,31,63,0.12);
+        }
+
+        .mvc-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .mvc-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .mvc-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* Values List */
+        .values-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .values-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+
+        .values-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        .values-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Founders Section */
+        .founders-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 4rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px rgba(0,31,63,0.08);
+        }
+
+        .founders-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .founders-section > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .founder-card {
+            background: var(--light-gray);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .founder-card:hover {
+            background: var(--white);
+            box-shadow: 0 15px 30px rgba(0,31,63,0.1);
+            transform: translateY(-5px);
+        }
+
+        .founder-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .founder-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-card p {
+            color: var(--primary-orange);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Impact Stats */
+        .impact-section {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 20px;
+            padding: 4rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .impact-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,31,63,0.08);
+        }
+
+        .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            color: var(--white);
+            padding: 1.2rem 3rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,140,0,0.3);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,140,0,0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .story-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story-image {
+                height: 300px;
+                order: -1;
+            }
+
+            .mvc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .founders-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .story-section,
+            .founders-section,
+            .impact-section,
+            .cta-section {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Varsity Friends Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="apply.html" class="apply-btn">Apply Now</a></li>
+                <li><a href="aps-calculator.html">APS Calculator</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>About Varsity Friends</h1>
+        <p>Enlightening futures since 2022. We're on a mission to transform educational access for South African learners through simplified university applications.</p>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Our Story Section -->
+        <div class="story-section">
+            <div class="story-grid">
+                <div class="story-content">
+                    <h2>Our Story</h2>
+                    <p>Varsity Friends was born from a simple observation: too many talented South African learners were missing out on tertiary education opportunities because the application process was complex, overwhelming, and poorly understood.</p>
+                    <p>In 2022, three passionate individuals—Emmanuel Sepato, Bennet Sibiya, and Bongani Mkhabela—came together with a shared vision: to bridge the gap between ambitious learners and their academic dreams. What started as a small initiative to help local students has grown into a trusted educational support organization.</p>
+                    <p>Today, we serve as a vital stepping stone for learners across South Africa, handling the paperwork, deadlines, and complexities of university applications so that students can focus on what matters most—their future.</p>
+                </div>
+                <div class="story-image">
+                    <span>Our Journey Begins</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission, Vision, Values -->
+        <div class="mvc-grid">
+            <div class="mvc-card">
+                <div class="mvc-icon">🎯</div>
+                <h3>Our Mission</h3>
+                <p>To be South Africa's most trusted source of valuable, actionable information for tertiary education. We maximize admission opportunities by providing services that serve as stepping stones to personal transformation and academic success.</p>
+            </div>
+            
+            <div class="mvc-card">
+                <div class="mvc-icon">🔮</div>
+                <h3>Our Vision</h3>
+                <p>As we enlighten futures, we aim to establish accessible application centers, offices, and branches nationwide—improving our visibility, generating sustainable leads, and continuously improving the success rate of applications from our developing communities.</p>
+            </div>
+            
+            <div class="mvc-card">
+                <div class="mvc-icon">💎</div>
+                <h3>Our Values</h3>
+                <ul class="values-list">
+                    <li><strong>Empowerment:</strong> Providing knowledge, resources, and support for informed decisions</li>
+                    <li><strong>Agency:</strong> Fostering self-reliance and personal growth</li>
+                    <li><strong>Accessibility:</strong> Breaking down barriers to educational opportunities</li>
+                    <li><strong>Integrity:</strong> Honest, transparent guidance in every interaction</li>
+                    <li><strong>Community:</strong> Building stronger futures together</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Impact Stats -->
+        <div class="impact-section">
+            <h2>Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Students Helped</p>
+                </div>
+                <div class="stat-item">
+                    <h3>25+</h3>
+                    <p>Partner Institutions</p>
+                </div>
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>Success Rate</p>
+                </div>
+                <div class="stat-item">
+                    <h3>3</h3>
+                    <p>Founding Visionaries</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Founders Section -->
+        <div class="founders-section">
+            <h2>Meet Our Founders</h2>
+            <p>Varsity Friends was established by three dedicated individuals committed to transforming educational access in South Africa.</p>
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <div class="founder-avatar">ES</div>
+                    <h4>Emmanuel Sepato</h4>
+                    <p>Co-Founder</p>
+                </div>
+                <div class="founder-card">
+                    <div class="founder-avatar">BS</div>
+                    <h4>Bennet Sibiya</h4>
+                    <p>Co-Founder</p>
+                </div>
+                <div class="founder-card">
+                    <div class="founder-avatar">BM</div>
+                    <h4>Bongani Mkhabela</h4>
+                    <p>Co-Founder</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Ready to Start Your Journey?</h2>
+            <p>Join the hundreds of students who have successfully navigated their path to tertiary education with Varsity Friends. Let us help you take the first step toward your academic future.</p>
+            <a href="apply.html" class="btn-cta">Apply Now</a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>

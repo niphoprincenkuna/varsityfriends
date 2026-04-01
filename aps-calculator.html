@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APS Calculator - Varsity Friends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #FF8C00;
+            --secondary-orange: #FFA500;
+            --primary-navy: #001F3F;
+            --secondary-navy: #003366;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text-dark: #333333;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-gray);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,31,63,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-navy);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .apply-btn {
+            background: var(--primary-orange);
+            color: var(--white) !important;
+            padding: 0.8rem 1.5rem !important;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,140,0,0.3);
+        }
+
+        .apply-btn::after {
+            display: none !important;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+            padding: 4rem 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .calculator-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,31,63,0.1);
+            padding: 2.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #666;
+        }
+
+        /* Subject Input Rows */
+        .subject-row {
+            display: grid;
+            grid-template-columns: 1fr 120px 80px;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: var(--light-gray);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .subject-row:hover {
+            background: rgba(255,140,0,0.05);
+            transform: translateX(5px);
+        }
+
+        .subject-row input[type="text"] {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 0.6rem;
+            font-size: 0.95rem;
+        }
+
+        .subject-row input[type="number"] {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 0.6rem;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .subject-row input:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+        }
+
+        .points-display {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-navy);
+            text-align: center;
+        }
+
+        .row-label {
+            font-weight: 600;
+            color: var(--primary-navy);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .result-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,31,63,0.1);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .aps-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 15px 40px rgba(255,140,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .aps-circle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .aps-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .aps-label {
+            color: var(--white);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pass-level {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .pass-level.bachelor {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .pass-level.diploma {
+            background: rgba(255, 193, 7, 0.1);
+            color: #856404;
+            border: 2px solid var(--warning);
+        }
+
+        .pass-level.higher-certificate {
+            background: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+            border: 2px solid var(--info);
+        }
+
+        .pass-level.nsc {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+
+        .result-note {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .recommendation-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .recommendation-block {
+            background: var(--light-gray);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .recommendation-block h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .recommendation-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .recommendation-list li {
+            padding: 0.28rem 0;
+            color: #555;
+        }
+
+        .recommendation-list li::before {
+            content: '•';
+            color: var(--primary-orange);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .subject-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .subject-pill {
+            background: rgba(0, 31, 63, 0.08);
+            color: var(--primary-navy);
+            border-radius: 999px;
+            padding: 0.45rem 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .course-empty {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .career-disclaimer {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #777;
+            text-align: left;
+        }
+
+        /* Scale Table */
+        .scale-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .scale-table th,
+        .scale-table td {
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .scale-table th {
+            background: var(--primary-navy);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .scale-table tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+
+        .scale-table tr:hover {
+            background: rgba(255,140,0,0.1);
+        }
+
+        .level-7 { background: rgba(40, 167, 69, 0.2) !important; font-weight: 700; }
+        .level-6 { background: rgba(40, 167, 69, 0.1) !important; }
+        .level-5 { background: rgba(255, 193, 7, 0.1) !important; }
+        .level-4 { background: rgba(255, 193, 7, 0.2) !important; }
+        .level-3 { background: rgba(220, 53, 69, 0.1) !important; }
+        .level-2 { background: rgba(220, 53, 69, 0.2) !important; }
+        .level-1 { background: rgba(220, 53, 69, 0.3) !important; color: var(--danger); }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,31,63,0.08);
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .info-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .info-card li {
+            padding: 0.3rem 0;
+            color: #555;
+        }
+
+        .info-card li::before {
+            content: '✓';
+            color: var(--success);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--white);
+            margin-top: 3rem;
+        }
+
+        .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .btn-cta {
+            background: var(--white);
+            color: var(--primary-orange);
+            padding: 1rem 3rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Buttons */
+        .btn-calculate {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,140,0,0.3);
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,140,0,0.4);
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: var(--primary-navy);
+            border: 2px solid var(--primary-navy);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background: var(--primary-navy);
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .calculator-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aps-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .aps-number {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .subject-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .subject-row input[type="number"] {
+                width: 100%;
+            }
+
+            .points-display {
+                text-align: left;
+            }
+        }
+
+        /* Animation */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Varsity Friends Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="apply.html" class="apply-btn">Apply Now</a></li>
+                <li><a href="aps-calculator.html">APS Calculator</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>APS Calculator</h1>
+        <p>Calculate your Admission Point Score (APS) to see which universities, courses, and career paths may suit you. Enter up to 7 academic subjects plus Life Orientation below.</p>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="calculator-wrapper">
+            <!-- Calculator Section -->
+            <div class="calculator-section">
+                <div class="section-header">
+                    <h2>Enter Your Marks</h2>
+                    <p>Enter your final matric percentage for up to 7 academic subjects (0-100%)</p>
+                </div>
+
+                <form id="apsForm">
+                    <!-- Subject 1: Home Language -->
+                    <div class="row-label">Home Language (Compulsory)</div>
+                    <div class="subject-row">
+                        <input type="text" placeholder="e.g., English Home Language" id="subject1_name" value="Home Language">
+                        <input type="number" min="0" max="100" placeholder="%" id="subject1_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="subject1_points">-</div>
+                    </div>
+
+                    <!-- Subject 2: First Additional Language -->
+                    <div class="row-label">First Additional Language (Compulsory)</div>
+                    <div class="subject-row">
+                        <input type="text" placeholder="e.g., Afrikaans FAL" id="subject2_name" value="First Additional Language">
+                        <input type="number" min="0" max="100" placeholder="%" id="subject2_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="subject2_points">-</div>
+                    </div>
+
+                    <!-- Subject 3: Mathematics/Maths Lit -->
+                    <div class="row-label">Mathematics / Mathematical Literacy</div>
+                    <div class="subject-row">
+                        <input type="text" placeholder="e.g., Mathematics" id="subject3_name" value="Mathematics">
+                        <input type="number" min="0" max="100" placeholder="%" id="subject3_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="subject3_points">-</div>
+                    </div>
+
+                    <!-- Subject 4 -->
+                    <div class="row-label">Subject 4</div>
+                    <div class="subject-row">
+                        <input type="text" placeholder="e.g., Physical Sciences" id="subject4_name">
+                        <input type="number" min="0" max="100" placeholder="%" id="subject4_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="subject4_points">-</div>
+                    </div>
+
+                    <!-- Subject 5 -->
+                    <div class="row-label">Subject 5</div>
+                    <div class="subject-row">
+                        <input type="text" placeholder="e.g., Life Sciences" id="subject5_name">
+                        <input type="number" min="0" max="100" placeholder="%" id="subject5_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="subject5_points">-</div>
+                    </div>
+
+                    <!-- Subject 6 -->
+                    <div class="row-label">Subject 6</div>
+                    <div class="subject-row">
+                        <input type="text" placeholder="e.g., Geography" id="subject6_name">
+                        <input type="number" min="0" max="100" placeholder="%" id="subject6_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="subject6_points">-</div>
+                    </div>
+
+                    <!-- Subject 7 / 8th Subject -->
+                    <div class="row-label">Additional Subject (8th Subject)</div>
+                    <div class="subject-row">
+                        <input type="text" placeholder="e.g., Accounting / CAT / Tourism" id="subject7_name">
+                        <input type="number" min="0" max="100" placeholder="%" id="subject7_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="subject7_points">-</div>
+                    </div>
+
+                    <!-- Life Orientation (Optional - shown but not counted) -->
+                    <div class="row-label">Life Orientation (Not counted in APS)</div>
+                    <div class="subject-row" style="opacity: 0.7;">
+                        <input type="text" value="Life Orientation" readonly>
+                        <input type="number" min="0" max="100" placeholder="%" id="lo_mark" oninput="calculateAPS()">
+                        <div class="points-display" id="lo_points" style="color: #999;">-</div>
+                    </div>
+
+                    <button type="button" class="btn-calculate" onclick="calculateAPS()">Calculate My APS</button>
+                    <button type="button" class="btn-reset" onclick="resetForm()">Reset</button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <!-- APS Score Display -->
+                <div class="result-card">
+                    <h3 style="font-family: 'Montserrat', sans-serif; color: var(--primary-navy); margin-bottom: 1rem;">Your APS Score</h3>
+                    <div class="aps-circle" id="apsCircle">
+                        <div class="aps-number" id="apsScore">0</div>
+                        <div class="aps-label">best 6 subjects</div>
+                    </div>
+                    <div class="pass-level nsc" id="passLevel">
+                        Enter your marks to see your pass level
+                    </div>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">
+                        <strong>Note:</strong> APS is calculated from your best 6 academic subjects. Your extra subject helps give a fuller estimate and better course/career guidance. Life Orientation is excluded.
+                    </p>
+                </div>
+
+                <!-- Courses and Career Recommendation -->
+                <div class="result-card">
+                    <h3 style="font-family: 'Montserrat', sans-serif; color: var(--primary-navy); margin-bottom: 1rem;">Courses & Career Paths</h3>
+                    <div id="courseResults" class="course-empty">
+                        Enter at least 6 academic subjects to see suggested courses and possible career paths.
+                    </div>
+                </div>
+
+                <!-- APS Scale Reference -->
+                <div class="result-card">
+                    <h3 style="font-family: 'Montserrat', sans-serif; color: var(--primary-navy); margin-bottom: 1rem;">APS Points Scale</h3>
+                    <table class="scale-table">
+                        <thead>
+                            <tr>
+                                <th>% Range</th>
+                                <th>Points</th>
+                                <th>Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="level-7">
+                                <td>80 - 100%</td>
+                                <td>7</td>
+                                <td>Outstanding</td>
+                            </tr>
+                            <tr class="level-6">
+                                <td>70 - 79%</td>
+                                <td>6</td>
+                                <td>Meritorious</td>
+                            </tr>
+                            <tr class="level-5">
+                                <td>60 - 69%</td>
+                                <td>5</td>
+                                <td>Substantial</td>
+                            </tr>
+                            <tr class="level-4">
+                                <td>50 - 59%</td>
+                                <td>4</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr class="level-3">
+                                <td>40 - 49%</td>
+                                <td>3</td>
+                                <td>Adequate</td>
+                            </tr>
+                            <tr class="level-2">
+                                <td>30 - 39%</td>
+                                <td>2</td>
+                                <td>Elementary</td>
+                            </tr>
+                            <tr class="level-1">
+                                <td>0 - 29%</td>
+                                <td>1</td>
+                                <td>Not Achieved</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🎓 Bachelor's Pass</h3>
+                <ul>
+                    <li>Minimum APS: <strong>23 points</strong></li>
+                    <li>40% in Home Language</li>
+                    <li>50% in 4 other subjects</li>
+                    <li>30% in 2 other subjects</li>
+                    <li>Qualifies for: University Degree</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>📜 Diploma Pass</h3>
+                <ul>
+                    <li>Minimum APS: <strong>19 points</strong></li>
+                    <li>40% in Home Language</li>
+                    <li>40% in 3 other subjects</li>
+                    <li>30% in 2 other subjects</li>
+                    <li>Qualifies for: Diploma / Tech</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>📋 Higher Certificate</h3>
+                <ul>
+                    <li>Minimum APS: <strong>15 points</strong></li>
+                    <li>40% in Home Language</li>
+                    <li>40% in 2 other subjects</li>
+                    <li>30% in 3 other subjects</li>
+                    <li>Qualifies for: Certificate Course</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Know Your APS? Apply Now!</h2>
+            <p>Now that you know your Admission Point Score, let Varsity Friends help you apply to the universities you qualify for. We handle all the paperwork!</p>
+            <a href="apply.html" class="btn-cta">Start Your Application</a>
+        </div>
+    </div>
+
+    <script>
+        // Calculate APS based on percentage
+        function getAPSPoints(percentage) {
+            if (percentage >= 80) return 7;
+            if (percentage >= 70) return 6;
+            if (percentage >= 60) return 5;
+            if (percentage >= 50) return 4;
+            if (percentage >= 40) return 3;
+            if (percentage >= 30) return 2;
+            if (percentage >= 0) return 1;
+            return 0;
+        }
+
+        // Calculate total APS
+        function calculateAPS() {
+            const academicSubjects = [];
+
+            for (let i = 1; i <= 7; i++) {
+                const nameInput = document.getElementById(`subject${i}_name`);
+                const markInput = document.getElementById(`subject${i}_mark`);
+                const pointsDisplay = document.getElementById(`subject${i}_points`);
+                const mark = parseInt(markInput.value);
+                const subjectName = (nameInput.value || `Subject ${i}`).trim();
+
+                if (!isNaN(mark) && mark >= 0 && mark <= 100) {
+                    const points = getAPSPoints(mark);
+                    pointsDisplay.textContent = points;
+                    pointsDisplay.style.color = getPointsColor(points);
+                    academicSubjects.push({
+                        index: i,
+                        name: subjectName,
+                        lowerName: subjectName.toLowerCase(),
+                        mark,
+                        points
+                    });
+                } else {
+                    pointsDisplay.textContent = '-';
+                    pointsDisplay.style.color = 'var(--primary-navy)';
+                }
+            }
+
+            const bestSix = [...academicSubjects]
+                .sort((a, b) => b.points - a.points || b.mark - a.mark)
+                .slice(0, 6);
+
+            const totalAPS = bestSix.reduce((sum, subject) => sum + subject.points, 0);
+            const loMark = parseInt(document.getElementById('lo_mark').value);
+            const loPointsDisplay = document.getElementById('lo_points');
+
+            if (!isNaN(loMark) && loMark >= 0 && loMark <= 100) {
+                const loPoints = getAPSPoints(loMark);
+                loPointsDisplay.textContent = loPoints + ' (not counted)';
+            } else {
+                loPointsDisplay.textContent = '-';
+            }
+
+            const apsScoreElement = document.getElementById('apsScore');
+            const passLevelElement = document.getElementById('passLevel');
+            const apsLabelElement = document.querySelector('.aps-label');
+            const apsCircle = document.getElementById('apsCircle');
+            const courseResultsElement = document.getElementById('courseResults');
+
+            if (academicSubjects.length > 0) {
+                apsScoreElement.textContent = totalAPS;
+                apsLabelElement.textContent = 'best 6 subjects';
+
+                let passLevel = '';
+                let passClass = '';
+
+                if (academicSubjects.length < 6) {
+                    passLevel = `📝 Add ${6 - academicSubjects.length} more academic subject${academicSubjects.length === 5 ? '' : 's'} for a full APS estimate`;
+                    passClass = 'nsc';
+                } else if (totalAPS >= 23) {
+                    passLevel = "✅ Bachelor's Degree Pass - You qualify for university!";
+                    passClass = 'bachelor';
+                } else if (totalAPS >= 19) {
+                    passLevel = "📜 Diploma Pass - You qualify for diploma/tech studies!";
+                    passClass = 'diploma';
+                } else if (totalAPS >= 15) {
+                    passLevel = "📋 Higher Certificate Pass - Certificate courses available";
+                    passClass = 'higher-certificate';
+                } else {
+                    passLevel = "❌ NSC Pass Only - Consider upgrading or bridging courses";
+                    passClass = 'nsc';
+                }
+
+                passLevelElement.textContent = passLevel;
+                passLevelElement.className = 'pass-level ' + passClass;
+
+                if (totalAPS >= 23 && academicSubjects.length >= 6) {
+                    apsCircle.classList.add('pulse');
+                } else {
+                    apsCircle.classList.remove('pulse');
+                }
+
+                courseResultsElement.className = '';
+                courseResultsElement.innerHTML = buildRecommendationMarkup(totalAPS, academicSubjects, bestSix);
+            } else {
+                apsScoreElement.textContent = '0';
+                apsLabelElement.textContent = 'best 6 subjects';
+                passLevelElement.textContent = 'Enter your marks to see your pass level';
+                passLevelElement.className = 'pass-level nsc';
+                apsCircle.classList.remove('pulse');
+                courseResultsElement.innerHTML = 'Enter at least 6 academic subjects to see suggested courses and possible career paths.';
+                courseResultsElement.className = 'course-empty';
+            }
+        }
+
+        function buildRecommendationMarkup(totalAPS, subjects, bestSix) {
+            const lowerSubjects = subjects.map(subject => subject.lowerName);
+            const hasSubject = keywords => lowerSubjects.some(subject => keywords.some(keyword => subject.includes(keyword)));
+            const averageFor = keywords => {
+                const matches = subjects.filter(subject => keywords.some(keyword => subject.lowerName.includes(keyword)));
+                if (!matches.length) return 0;
+                return matches.reduce((sum, subject) => sum + subject.mark, 0) / matches.length;
+            };
+
+            const hasMath = hasSubject(['math']);
+            const hasMathLit = hasSubject(['math lit', 'mathematical literacy']);
+            const hasPhysicalScience = hasSubject(['physical science', 'physics', 'chemistry']);
+            const hasLifeScience = hasSubject(['life science', 'biology', 'agricultural science']);
+            const hasBusiness = hasSubject(['business', 'accounting', 'economics', 'commerce']);
+            const hasIT = hasSubject(['it', 'computer', 'information technology', 'cat']);
+            const hasHumanities = hasSubject(['history', 'geography', 'tourism', 'religion', 'sociology']);
+            const hasCreative = hasSubject(['art', 'design', 'dramatic', 'music', 'visual']);
+            const hasLanguages = hasSubject(['language', 'english', 'afrikaans', 'isizulu', 'xhosa', 'setswana', 'sesotho']);
+
+            const mathAverage = averageFor(['math']);
+            const scienceAverage = averageFor(['physical science', 'physics', 'chemistry', 'life science', 'biology', 'agricultural science']);
+            const businessAverage = averageFor(['business', 'accounting', 'economics', 'commerce']);
+            const itAverage = averageFor(['it', 'computer', 'information technology', 'cat']);
+            const languageAverage = averageFor(['language', 'english', 'afrikaans', 'isizulu', 'xhosa', 'setswana', 'sesotho']);
+
+            const courseMatches = [];
+            const careerMatches = [];
+            const studyStreams = [];
+
+            if (totalAPS >= 28 && hasMath && hasPhysicalScience) {
+                courseMatches.push('BSc Engineering, BSc Construction, BSc Computer Science, BSc Data Science');
+                careerMatches.push('Engineer, software developer, data analyst, quantity surveyor');
+                studyStreams.push('Strong STEM pathway based on Mathematics and Physical Sciences.');
+            }
+
+            if (totalAPS >= 26 && hasMath && (hasLifeScience || hasPhysicalScience)) {
+                courseMatches.push('BSc Life Sciences, Health Sciences preparation, Environmental Science');
+                careerMatches.push('Laboratory scientist, environmental officer, healthcare support professional');
+                studyStreams.push('Science pathway with potential for health and environmental programmes.');
+            }
+
+            if (totalAPS >= 24 && (hasBusiness || hasMath || hasMathLit)) {
+                courseMatches.push('BCom Accounting, Finance, Business Management, Marketing, Human Resources');
+                careerMatches.push('Accountant, banker, entrepreneur, HR practitioner, marketing coordinator');
+                studyStreams.push('Commerce pathway supported by numeracy and business-related subjects.');
+            }
+
+            if (totalAPS >= 22 && (hasIT || hasMath)) {
+                courseMatches.push('Diploma or Degree in Information Technology, Systems Development, Networking');
+                careerMatches.push('IT technician, software tester, support specialist, junior developer');
+                studyStreams.push('Digital and technology pathway with strong IT potential.');
+            }
+
+            if (totalAPS >= 22 && (hasHumanities || hasLanguages)) {
+                courseMatches.push('BA Humanities, Education, Psychology, Public Administration, Social Science');
+                careerMatches.push('Teacher, social worker, public servant, writer, communication officer');
+                studyStreams.push('Humanities and social science pathway with people-focused careers.');
+            }
+
+            if (totalAPS >= 20 && (hasCreative || hasLanguages || hasHumanities)) {
+                courseMatches.push('Diploma in Media, Journalism, Tourism, Public Relations, Graphic or Fashion-related studies');
+                careerMatches.push('Content creator, tourism consultant, journalist, designer, brand assistant');
+                studyStreams.push('Creative communication pathway for media, design, and tourism-related fields.');
+            }
+
+            if (totalAPS >= 15) {
+                courseMatches.push('Higher Certificate in Business, IT, Education Support, Office Administration, Community Health');
+                careerMatches.push('Office administrator, sales consultant, classroom assistant, call-centre or service agent');
+            }
+
+            if (!courseMatches.length) {
+                courseMatches.push('Bridging programmes, matric upgrade, foundational access programmes');
+                careerMatches.push('Focus on improving marks first, then re-apply for specialised study paths');
+            }
+
+            const strengths = [];
+            if (mathAverage >= 60) strengths.push('Good numeracy performance supports STEM and commerce programmes.');
+            if (scienceAverage >= 60) strengths.push('Strong science marks improve access to science-based courses.');
+            if (businessAverage >= 60) strengths.push('Business-related marks support BCom and diploma commerce options.');
+            if (itAverage >= 60) strengths.push('Your technology subjects strengthen IT and computing options.');
+            if (languageAverage >= 60) strengths.push('Strong language results support law, education, media, and humanities fields.');
+            if (!strengths.length) strengths.push('Your best-performing subjects should guide your final course choice and application strategy.');
+
+            const uniqueCourses = [...new Set(courseMatches)];
+            const uniqueCareers = [...new Set(careerMatches)];
+            const uniqueStreams = [...new Set(studyStreams)];
+
+            const countedSubjects = bestSix.length
+                ? bestSix.map(subject => `<span class="subject-pill">${subject.name}: ${subject.mark}% (${subject.points} pts)</span>`).join('')
+                : '<span class="subject-pill">No valid subjects entered yet</span>';
+
+            return `
+                <div class="recommendation-grid">
+                    <div class="recommendation-block">
+                        <h4>Subjects counted toward APS</h4>
+                        <div class="subject-summary">${countedSubjects}</div>
+                    </div>
+                    <div class="recommendation-block">
+                        <h4>Suggested study options</h4>
+                        <ul class="recommendation-list">${uniqueCourses.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div class="recommendation-block">
+                        <h4>Possible career paths</h4>
+                        <ul class="recommendation-list">${uniqueCareers.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div class="recommendation-block">
+                        <h4>Why these are a good fit</h4>
+                        <ul class="recommendation-list">${[...uniqueStreams, ...strengths].map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                </div>
+                <p class="career-disclaimer">Course admission rules differ by institution. Always confirm minimum APS, subject requirements, and faculty selection rules with the university you want to apply to.</p>
+            `;
+        }
+
+        // Get color based on points
+        function getPointsColor(points) {
+            if (points >= 7) return 'var(--success)';
+            if (points >= 5) return 'var(--warning)';
+            if (points >= 3) return 'var(--primary-orange)';
+            return 'var(--danger)';
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('apsForm').reset();
+            
+            // Reset all displays
+            for (let i = 1; i <= 7; i++) {
+                document.getElementById(`subject${i}_points`).textContent = '-';
+                document.getElementById(`subject${i}_points`).style.color = 'var(--primary-navy)';
+            }
+            document.getElementById('lo_points').textContent = '-';
+            document.getElementById('apsScore').textContent = '0';
+            document.getElementById('passLevel').textContent = 'Enter your marks to see your pass level';
+            document.getElementById('passLevel').className = 'pass-level nsc';
+            document.getElementById('apsCircle').classList.remove('pulse');
+            const courseResultsElement = document.getElementById('courseResults');
+            courseResultsElement.textContent = 'Enter at least 6 academic subjects to see suggested courses and possible career paths.';
+            courseResultsElement.className = 'course-empty';
+        }
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default subject names
+            document.getElementById('subject4_name').value = '';
+            document.getElementById('subject5_name').value = '';
+            document.getElementById('subject6_name').value = '';
+            document.getElementById('subject7_name').value = '';
+        });
+    </script>
+</body>
+</html>

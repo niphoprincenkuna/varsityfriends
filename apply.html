@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Now - Varsity Friends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #FF8C00;
+            --secondary-orange: #FFA500;
+            --primary-navy: #001F3F;
+            --secondary-navy: #003366;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text-dark: #333333;
+            --error: #dc3545;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-gray);
+        }
+
+        /* Navigation - Same as home */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,31,63,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-navy);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .apply-btn {
+            background: var(--primary-orange);
+            color: var(--white) !important;
+            padding: 0.8rem 1.5rem !important;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,140,0,0.3);
+        }
+
+        .apply-btn::after {
+            display: none !important;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+            padding: 4rem 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .form-wrapper {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,31,63,0.1);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .form-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            opacity: 0.9;
+        }
+
+        .form-body {
+            padding: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-navy);
+            font-size: 1.3rem;
+            margin: 2rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-orange);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .required::after {
+            content: ' *';
+            color: var(--error);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 3px rgba(255,140,0,0.1);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23001F3F' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-orange);
+            cursor: pointer;
+        }
+
+        .conditional-field {
+            display: none;
+            animation: slideDown 0.3s ease;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .conditional-field.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Pricing Section */
+        .pricing-box {
+            background: linear-gradient(135deg, rgba(255,140,0,0.05), rgba(255,165,0,0.05));
+            border: 2px solid var(--primary-orange);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .pricing-title {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-option {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-option:hover {
+            border-color: var(--primary-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,140,0,0.1);
+        }
+
+        .pricing-option.selected {
+            border-color: var(--primary-orange);
+            background: rgba(255,140,0,0.05);
+            box-shadow: 0 5px 15px rgba(255,140,0,0.2);
+        }
+
+        .pricing-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .price-amount {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .price-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .institution-slots {
+            margin-top: 2rem;
+        }
+
+        .slot-container {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            animation: slideDown 0.3s ease;
+        }
+
+        .slot-number {
+            font-weight: 700;
+            color: var(--primary-orange);
+            grid-column: 1 / -1;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Separated Fee Boxes */
+        .fee-boxes-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .fee-boxes-wrapper { grid-template-columns: 1fr; }
+        }
+
+        .fee-box {
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+        .fee-box.active { display: block; }
+
+        .fee-box-vf {
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            color: var(--white);
+        }
+        .fee-box-app {
+            background: linear-gradient(135deg, #154360, #1a5276);
+            color: var(--white);
+        }
+
+        .fee-box h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+        .fee-box-vf h5 { color: var(--primary-orange); }
+        .fee-box-app h5 { color: #f0a500; }
+
+        .fee-box-total {
+            text-align: center;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .fee-box-vf .fee-box-total { background: var(--primary-orange); }
+        .fee-box-app .fee-box-total { background: #d35400; }
+
+        .fee-box-total-label { font-size: 0.85rem; opacity: 0.9; }
+        .fee-box-total-amount { font-size: 1.8rem; font-weight: 800; }
+
+        .fee-box-note {
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+            padding: 0.7rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            line-height: 1.5;
+        }
+
+        /* Application Fee Summary Section */
+        .fee-summary {
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            color: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .fee-summary.active {
+            display: block;
+        }
+
+        .fee-summary h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--primary-orange);
+        }
+
+        .fee-breakdown {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .fee-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .fee-item:last-child {
+            border-bottom: none;
+        }
+
+        .fee-item.institution-fee {
+            background: rgba(255,140,0,0.2);
+            margin: 0.5rem -1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+        }
+
+        .fee-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .fee-icon {
+            font-size: 1.2rem;
+        }
+
+        .fee-amount {
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .fee-total {
+            background: var(--primary-orange);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .fee-total-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .fee-total-amount {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .fee-note {
+            background: rgba(255,193,7,0.2);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .fee-note strong {
+            color: var(--warning);
+        }
+
+        .total-price {
+            background: var(--primary-navy);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            font-weight: 600;
+        }
+
+        .total-price span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-orange);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        /* File Upload Styling */
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .file-upload:hover .file-upload-label {
+            border-color: var(--primary-orange);
+            background: rgba(255,140,0,0.05);
+        }
+
+        .file-name {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+        }
+
+        .file-required {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Submit Button */
+        .submit-section {
+            margin-top: 3rem;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 2px solid var(--light-gray);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            color: var(--white);
+            padding: 1.2rem 4rem;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,140,0,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,140,0,0.4);
+        }
+
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .disclaimer {
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Error States */
+        .error-message {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-group.error input,
+        .form-group.error select {
+            border-color: var(--error);
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .slot-container {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .fee-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fee-total-amount {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-submit.loading .spinner {
+            display: inline-block;
+        }
+
+        .btn-submit.loading .btn-text {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Varsity Friends Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="apply.html" class="apply-btn">Apply Now</a></li>
+                <li><a href="aps-calculator.html">APS Calculator</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Start Your Application</h1>
+        <p>Complete the form below and we'll handle your university and college applications. All fields marked with * are required.</p>
+    </section>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <h2>Varsity Friends Application Form</h2>
+                <p>Enlightening Futures - One Application at a Time</p>
+            </div>
+            
+            <form class="form-body" id="applicationForm" action="https://formsubmit.co/varsityfriendsvf@gmail.com" method="POST" enctype="multipart/form-data">
+                <!-- Hidden fields for FormSubmit -->
+                <input type="hidden" name="_subject" value="New Varsity Friends Application">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="thank-you.html">
+                <input type="hidden" name="_autoresponse" value="Thank you for your application. We have received your submission and will contact you within 24-48 hours.">
+                <!-- Hidden fields for fee breakdown -->
+                <input type="hidden" name="Total_Varsity_Friends_Fee" id="totalVarsityFriendsFee" value="R0">
+                <input type="hidden" name="Total_University_Application_Fees" id="totalUniFees" value="R0">
+                
+                <!-- Personal Details Section -->
+                <h3 class="section-title">👤 Personal Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName" class="required">First Name</label>
+                        <input type="text" id="firstName" name="First_Name" required>
+                        <span class="error-message">Please enter your first name</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="surname" class="required">Surname</label>
+                        <input type="text" id="surname" name="Surname" required>
+                        <span class="error-message">Please enter your surname</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="idNumber" class="required">ID Number</label>
+                        <input type="text" id="idNumber" name="ID_Number" pattern="[0-9]{13}" maxlength="13" required placeholder="13 digit SA ID number">
+                        <span class="error-message">Please enter a valid 13-digit ID number</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cellPhone" class="required">Cell Phone Number</label>
+                        <input type="tel" id="cellPhone" name="Cell_Phone" pattern="[0-9]{10}" maxlength="10" required placeholder="10 digit number">
+                        <span class="error-message">Please enter a valid 10-digit cell number</span>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="email" class="required">Email Address</label>
+                        <input type="email" id="email" name="Email" required>
+                        <span class="error-message">Please enter a valid email address</span>
+                    </div>
+                </div>
+
+                <!-- Current Activity Section -->
+                <h3 class="section-title">📚 Current Activity</h3>
+                <div class="form-group">
+                    <label class="required">Current Status</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="Current_Activity" value="Grade 12 Learner" required onchange="toggleCompletionYear()">
+                            <span>Grade 12 Learner</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="Current_Activity" value="Completed" required onchange="toggleCompletionYear()">
+                            <span>Completed</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="Current_Activity" value="Upgrading" required onchange="toggleCompletionYear()">
+                            <span>Upgrading</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Conditional: Year of Completion -->
+                <div id="completionYearField" class="conditional-field">
+                    <div class="form-group">
+                        <label for="completionYear" class="required">Year of Completion</label>
+                        <input type="number" id="completionYear" name="Year_of_Completion" min="1990" max="2026" placeholder="e.g., 2023">
+                    </div>
+                </div>
+
+                <div class="form-grid" style="margin-top: 1.5rem;">
+                    <div class="form-group full-width">
+                        <label for="school" class="required">School Attending / Attended</label>
+                        <input type="text" id="school" name="School" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="address" class="required">Physical Address</label>
+                        <textarea id="address" name="Physical_Address" rows="3" required placeholder="Street address, City, Province, Postal Code"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Are you upgrading your marks?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="Upgrading" value="Yes" required onchange="toggleUpgradingProof()">
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="Upgrading" value="No" required onchange="toggleUpgradingProof()">
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Application Selection Section -->
+                <h3 class="section-title">🎓 Application Selection</h3>
+                
+                <div class="pricing-box">
+                    <h4 class="pricing-title">Select Your Package</h4>
+                    
+                    <!-- Universities Selection -->
+                    <div class="form-group">
+                        <label class="required">Universities (Select one option)</label>
+                        <div class="pricing-grid" id="universityOptions">
+                            <label class="pricing-option" onclick="selectUniversity(this, 1, 50)">
+                                <input type="radio" name="University_Package" value="1 University - R50" data-price="50" data-count="1">
+                                <span class="price-amount">R50</span>
+                                <span class="price-desc">1 University</span>
+                            </label>
+                            <label class="pricing-option" onclick="selectUniversity(this, 4, 150)">
+                                <input type="radio" name="University_Package" value="4 Universities - R150" data-price="150" data-count="4">
+                                <span class="price-amount">R150</span>
+                                <span class="price-desc">4 Universities</span>
+                            </label>
+                            <label class="pricing-option" onclick="selectUniversity(this, 6, 200)">
+                                <input type="radio" name="University_Package" value="6 Universities - R200" data-price="200" data-count="6">
+                                <span class="price-amount">R200</span>
+                                <span class="price-desc">6 Universities</span>
+                            </label>
+                            <label class="pricing-option" onclick="selectUniversity(this, 8, 250)">
+                                <input type="radio" name="University_Package" value="8 Universities - R250" data-price="250" data-count="8">
+                                <span class="price-amount">R250</span>
+                                <span class="price-desc">8 Universities</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- University Slots Container -->
+                    <div id="universitySlots" class="institution-slots"></div>
+
+                    <!-- Colleges Selection -->
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label>TVET Colleges (Optional)</label>
+                        <div class="pricing-grid" id="collegeOptions">
+                            <label class="pricing-option" onclick="selectCollege(this, 1, 70)">
+                                <input type="radio" name="College_Package" value="1 College - R70" data-price="70" data-count="1">
+                                <span class="price-amount">R70</span>
+                                <span class="price-desc">1 TVET College</span>
+                            </label>
+                            <label class="pricing-option" onclick="selectCollege(this, 2, 120)">
+                                <input type="radio" name="College_Package" value="2 Colleges - R120" data-price="120" data-count="2">
+                                <span class="price-amount">R120</span>
+                                <span class="price-desc">2 TVET Colleges</span>
+                            </label>
+                            <label class="pricing-option" onclick="clearColleges()">
+                                <input type="radio" name="College_Package" value="None" data-price="0" data-count="0" checked>
+                                <span class="price-amount">R0</span>
+                                <span class="price-desc">No Colleges</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- College Slots Container -->
+                    <div id="collegeSlots" class="institution-slots"></div>
+
+                    <!-- Funding Assistance -->
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label>Funding Application Assistance (Optional)</label>
+                        <div class="pricing-grid" id="fundingOptions">
+                            <label class="pricing-option" onclick="selectFunding(this, 50)">
+                                <input type="radio" name="Funding_Package" value="NSFAS - R50" data-price="50">
+                                <span class="price-amount">R50</span>
+                                <span class="price-desc">NSFAS Application</span>
+                            </label>
+                            <label class="pricing-option" onclick="selectFunding(this, 60)">
+                                <input type="radio" name="Funding_Package" value="Other Bursaries - R60" data-price="60">
+                                <span class="price-amount">R60</span>
+                                <span class="price-desc">Other Bursaries</span>
+                            </label>
+                            <label class="pricing-option" onclick="clearFunding()">
+                                <input type="radio" name="Funding_Package" value="None" data-price="0" checked>
+                                <span class="price-amount">R0</span>
+                                <span class="price-desc">No Funding Help</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Separated Fee Summary Boxes -->
+                    <div class="fee-boxes-wrapper">
+
+                        <!-- BOX 1: Varsity Friends Service Fee -->
+                        <div id="feeSummaryVF" class="fee-box fee-box-vf">
+                            <h5>🤝 Varsity Friends Service Fee</h5>
+                            <p style="font-size:0.82rem; opacity:0.85; margin-bottom:0.8rem; text-align:center;">Pay this amount <strong>to Varsity Friends</strong></p>
+                            <div class="fee-breakdown" id="feeBreakdownVF"></div>
+                            <div class="fee-box-total">
+                                <div class="fee-box-total-label">You Pay to Varsity Friends</div>
+                                <div class="fee-box-total-amount" id="feeTotalVF">R0</div>
+                            </div>
+                            <div class="fee-box-note">
+                                <strong>💳 Payment Details:</strong><br>
+                                Account Name: Varsity Friends<br>
+                                Bank: FNB<br>
+                                Account Number: 63107880379<br>
+                                Reference: [Your ID Number]
+                            </div>
+                        </div>
+
+                        <!-- BOX 2: University / College Application Fees (Learner pays directly) -->
+                        <div id="feeSummaryApp" class="fee-box fee-box-app">
+                            <h5>🎓 University / College Application Fees</h5>
+                            <p style="font-size:0.82rem; opacity:0.85; margin-bottom:0.8rem; text-align:center;">Paid <strong>directly by the learner</strong> to each institution</p>
+                            <div class="fee-breakdown" id="feeBreakdownApp"></div>
+                            <div class="fee-box-total">
+                                <div class="fee-box-total-label">Total Learner Application Fees</div>
+                                <div class="fee-box-total-amount" id="feeTotalApp">R0</div>
+                            </div>
+                            <div class="fee-box-note">
+                                ⚠️ These fees are paid <strong>directly to each university/college</strong> — NOT to Varsity Friends. Fees vary per institution.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Total Price Display (VF Service Fee only) -->
+                    <div class="total-price">
+                        Varsity Friends Service Fee: <span id="totalPrice">R0</span>
+                        <input type="hidden" name="Total_Price" id="totalPriceInput" value="R0">
+                    </div>
+                </div>
+
+                <!-- Next of Kin Section -->
+                <h3 class="section-title">👨‍👩‍👧 Next of Kin Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="parentName" class="required">Parent/Guardian Name</label>
+                        <input type="text" id="parentName" name="Parent_Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parentSurname" class="required">Parent/Guardian Surname</label>
+                        <input type="text" id="parentSurname" name="Parent_Surname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parentID" class="required">Parent ID Number</label>
+                        <input type="text" id="parentID" name="Parent_ID" pattern="[0-9]{13}" maxlength="13" required placeholder="13 digit SA ID number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parentCell" class="required">Parent Cell Number</label>
+                        <input type="tel" id="parentCell" name="Parent_Cell" pattern="[0-9]{10}" maxlength="10" required placeholder="10 digit number">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="parentEmail" class="required">Parent Email Address</label>
+                        <input type="email" id="parentEmail" name="Parent_Email" required>
+                    </div>
+                </div>
+
+                <!-- Document Upload Section -->
+                <h3 class="section-title">📎 Required Documents</h3>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="required">ID Copy (Certified)</label>
+                        <div class="file-upload">
+                            <input type="file" id="idCopy" name="ID_Copy" accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this)">
+                            <div class="file-upload-label">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <span>Click to upload ID copy</span>
+                            </div>
+                        </div>
+                        <div class="file-name" id="idCopyName"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Latest Results / Matric Certificate</label>
+                        <div class="file-upload">
+                            <input type="file" id="results" name="Latest_Results" accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this)">
+                            <div class="file-upload-label">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <span>Click to upload results</span>
+                            </div>
+                        </div>
+                        <div class="file-name" id="resultsName"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Proof of Payment <span style="color: var(--error);">(Required)</span></label>
+                        <div class="file-upload">
+                            <input type="file" id="payment" name="Proof_of_Payment" accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName(this); validatePayment()">
+                            <div class="file-upload-label" id="paymentLabel">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <span>Click to upload proof of payment</span>
+                            </div>
+                        </div>
+                        <div class="file-name" id="paymentName"></div>
+                        <div class="file-required" id="paymentError" style="display: none;">⚠️ Proof of payment is required before submitting</div>
+                    </div>
+
+                    <div class="form-group" id="upgradingProofField" style="display: none;">
+                        <label>Proof of Upgrading Registration</label>
+                        <div class="file-upload">
+                            <input type="file" id="upgradingProof" name="Proof_of_Upgrading" accept=".pdf,.jpg,.jpeg,.png" onchange="updateFileName(this)">
+                            <div class="file-upload-label">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <span>Click to upload proof of upgrading</span>
+                            </div>
+                        </div>
+                        <div class="file-name" id="upgradingProofName"></div>
+                    </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span class="spinner"></span>
+                        <span class="btn-text">Submit Application</span>
+                    </button>
+                    <p class="disclaimer">
+                        By submitting this form, you confirm that all information provided is accurate and you have uploaded the required proof of payment. 
+                        Applications without proof of payment will not be processed.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // South African Universities List with Application Fees (2025/2026)
+        const universities = [
+            { name: "University of Pretoria (UP)", fee: 300 },
+            { name: "University of Johannesburg (UJ)", fee: 0 },
+            { name: "University of the Witwatersrand (WITS)", fee: 100 },
+            { name: "University of Cape Town (UCT)", fee: 100 },
+            { name: "University of KwaZulu-Natal (UKZN)", fee: 210 },
+            { name: "North-West University (NWU)", fee: 0 },
+            { name: "University of the Free State (UFS)", fee: 0 },
+            { name: "Rhodes University (RU)", fee: 100 },
+            { name: "Nelson Mandela University (NMU)", fee: 0 },
+            { name: "University of South Africa (UNISA)", fee: 150 },
+            { name: "University of the Western Cape (UWC)", fee: 0 },
+            { name: "University of Limpopo (UL)", fee: 200 },
+            { name: "University of Mpumalanga (UMP)", fee: 200 },
+            { name: "Sol Plaatje University (SPU)", fee: 0 },
+            { name: "University of Fort Hare (UFH)", fee: 120 },
+            { name: "University of Zululand (UNIZULU)", fee: 220 },
+            { name: "Sefako Makgatho Health Sciences University (SMU)", fee: 300 },
+            { name: "Tshwane University of Technology (TUT)", fee: 240 },
+            { name: "Durban University of Technology (DUT)", fee: 250 },
+            { name: "Cape Peninsula University of Technology (CPUT)", fee: 0 },
+            { name: "Vaal University of Technology (VUT)", fee: 110 },
+            { name: "Central University of Technology (CUT)", fee: 0 },
+            { name: "Mangosuthu University of Technology (MUT)", fee: 250 },
+            { name: "University of Venda (UNIVEN)", fee: 100 },
+            { name: "Walter Sisulu University (WSU)", fee: 0 }
+        ];
+
+        // TVET Colleges List (Generally free or minimal fees)
+        const tvetColleges = [
+            "Tshwane South College (TSC)",
+            "South West Gauteng College (SWGC)",
+            "Ekurhuleni East College (EEC)",
+            "Ekurhuleni West College (EWC)",
+            "Gauteng City College (GCC)",
+            "Sedibeng College",
+            "Central Johannesburg College (CJC)",
+            "Westcol TVET College",
+            "Buffalo City TVET College",
+            "Eastcape Midlands College",
+            "Ingwe TVET College",
+            "King Hintsa TVET College",
+            "King Sabata Dalindyebo TVET College",
+            "Lovedale TVET College",
+            "Nelson Mandela Bay TVET College",
+            "Port Elizabeth TVET College",
+            "Boland TVET College",
+            "College of Cape Town",
+            "False Bay College",
+            "Northlink College",
+            "South Cape College",
+            "West Coast College",
+            "Motheo TVET College",
+            "Flavius Mareka TVET College",
+            "Goldfields TVET College",
+            "Maluti TVET College",
+            "Northern Cape Urban TVET College",
+            "Northern Cape Rural TVET College",
+            "Orbit TVET College",
+            "Vuselela TVET College",
+            "Letaba TVET College",
+            "Mopani South East TVET College",
+            "Sekhukhune TVET College",
+            "Vhembe TVET College",
+            "Waterberg TVET College",
+            "Ehlanzeni TVET College",
+            "Gert Sibande TVET College",
+            "Nkangala TVET College",
+            "Coastal KZN TVET College",
+            "Elangeni TVET College",
+            "Esayidi TVET College",
+            "Majuba TVET College",
+            "Mnambithi TVET College",
+            "Mthashana TVET College",
+            "Thekwini TVET College",
+            "Umfolozi TVET College",
+            "Umgungundlovu TVET College",
+            "Capricorn TVET College",
+            "Lephalale TVET College"
+        ];
+
+        // Toggle Completion Year Field
+        function toggleCompletionYear() {
+            const activity = document.querySelector('input[name="Current_Activity"]:checked');
+            const field = document.getElementById('completionYearField');
+            const input = document.getElementById('completionYear');
+            
+            if (activity && activity.value === 'Completed') {
+                field.classList.add('active');
+                input.required = true;
+            } else {
+                field.classList.remove('active');
+                input.required = false;
+                input.value = '';
+            }
+        }
+
+        // Toggle Upgrading Proof Field
+        function toggleUpgradingProof() {
+            const upgrading = document.querySelector('input[name="Upgrading"]:checked');
+            const field = document.getElementById('upgradingProofField');
+            const input = document.getElementById('upgradingProof');
+            
+            if (upgrading && upgrading.value === 'Yes') {
+                field.style.display = 'block';
+                input.required = true;
+            } else {
+                field.style.display = 'none';
+                input.required = false;
+                input.value = '';
+                document.getElementById('upgradingProofName').textContent = '';
+            }
+        }
+
+        // Select University Package
+        function selectUniversity(element, count, price) {
+            // Remove selected class from all university options
+            document.querySelectorAll('#universityOptions .pricing-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Check the radio input
+            const radio = element.querySelector('input[type="radio"]');
+            radio.checked = true;
+            
+            // Generate slots
+            generateSlots('university', count);
+            updateTotal();
+            
+            // Show fee summary section
+            // fee boxes are shown automatically by updateFeeSummary()
+        }
+
+        // Select College Package
+        function selectCollege(element, count, price) {
+            // Remove selected class from all college options
+            document.querySelectorAll('#collegeOptions .pricing-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Check the radio input
+            const radio = element.querySelector('input[type="radio"]');
+            radio.checked = true;
+            
+            // Generate slots
+            generateSlots('college', count);
+            updateTotal();
+        }
+
+        // Select Funding Package
+        function selectFunding(element, price) {
+            // Remove selected class from all funding options
+            document.querySelectorAll('#fundingOptions .pricing-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Check the radio input
+            const radio = element.querySelector('input[type="radio"]');
+            radio.checked = true;
+            
+            updateTotal();
+        }
+
+        // Clear Colleges Selection
+        function clearColleges() {
+            document.querySelectorAll('#collegeOptions .pricing-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector('#collegeOptions input[value="None"]').checked = true;
+            document.querySelector('#collegeOptions input[value="None"]').closest('.pricing-option').classList.add('selected');
+            document.getElementById('collegeSlots').innerHTML = '';
+            updateTotal();
+        }
+
+        // Clear Funding Selection
+        function clearFunding() {
+            document.querySelectorAll('#fundingOptions .pricing-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector('#fundingOptions input[value="None"]').checked = true;
+            document.querySelector('#fundingOptions input[value="None"]').closest('.pricing-option').classList.add('selected');
+            updateTotal();
+        }
+
+        // Generate Institution Slots
+        function generateSlots(type, count) {
+            const container = document.getElementById(type + 'Slots');
+            container.innerHTML = '';
+            
+            if (count === 0) return;
+            
+            const label = type === 'university' ? 'University' : 'TVET College';
+            
+            for (let i = 1; i <= count; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'slot-container';
+                
+                if (type === 'university') {
+                    slot.innerHTML = `
+                        <div class="slot-number">${label} #${i}</div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="required">Select ${label}</label>
+                            <select name="${type}_${i}_Institution" id="${type}_${i}_Select" required onchange="updateFeeSummary()">
+                                <option value="">Choose a ${label.toLowerCase()}...</option>
+                                ${universities.map(u => `<option value="${u.name}" data-fee="${u.fee}">${u.name} (App Fee: R${u.fee})</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="required">Course/Program Name</label>
+                            <input type="text" name="${type}_${i}_Course" required placeholder="Enter course name">
+                        </div>
+                    `;
+                } else {
+                    slot.innerHTML = `
+                        <div class="slot-number">${label} #${i}</div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="required">Select ${label}</label>
+                            <select name="${type}_${i}_Institution" id="${type}_${i}_Select" required>
+                                <option value="">Choose a ${label.toLowerCase()}...</option>
+                                ${tvetColleges.map(inst => `<option value="${inst}">${inst}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="required">Course/Program Name</label>
+                            <input type="text" name="${type}_${i}_Course" required placeholder="Enter course name">
+                        </div>
+                    `;
+                }
+                container.appendChild(slot);
+            }
+        }
+
+        // Update Fee Summary — split into two separate boxes
+        function updateFeeSummary() {
+            let htmlVF  = '';   // Varsity Friends service fees
+            let htmlApp = '';   // Learner's application fees (paid to institutions)
+            let totalVarsityFriends = 0;
+            let totalUniFees = 0;
+
+            // ── BOX 1: Varsity Friends Service Fees ──
+            const uniPackage = document.querySelector('input[name="University_Package"]:checked');
+            if (uniPackage && uniPackage.value !== 'None') {
+                const vfFee = parseInt(uniPackage.dataset.price) || 0;
+                totalVarsityFriends += vfFee;
+                htmlVF += `
+                    <div class="fee-item">
+                        <div class="fee-label"><span class="fee-icon">🎓</span>
+                            <span>University Applications (${uniPackage.value.split(' - ')[0]})</span>
+                        </div>
+                        <span class="fee-amount">R${vfFee}</span>
+                    </div>`;
+            }
+
+            const colPackage = document.querySelector('input[name="College_Package"]:checked');
+            if (colPackage && colPackage.value !== 'None') {
+                const colFee = parseInt(colPackage.dataset.price) || 0;
+                totalVarsityFriends += colFee;
+                htmlVF += `
+                    <div class="fee-item">
+                        <div class="fee-label"><span class="fee-icon">🏫</span>
+                            <span>TVET College Applications (${colPackage.value.split(' - ')[0]})</span>
+                        </div>
+                        <span class="fee-amount">R${colFee}</span>
+                    </div>`;
+            }
+
+            const fundPackage = document.querySelector('input[name="Funding_Package"]:checked');
+            if (fundPackage && fundPackage.value !== 'None') {
+                const fundFee = parseInt(fundPackage.dataset.price) || 0;
+                totalVarsityFriends += fundFee;
+                htmlVF += `
+                    <div class="fee-item">
+                        <div class="fee-label"><span class="fee-icon">💰</span>
+                            <span>Funding Assistance (${fundPackage.value.split(' - ')[0]})</span>
+                        </div>
+                        <span class="fee-amount">R${fundFee}</span>
+                    </div>`;
+            }
+
+            // ── BOX 2: Learner's Application Fees (paid directly to institutions) ──
+            const uniSelects = document.querySelectorAll('select[name^="university_"][name$="_Institution"]');
+            uniSelects.forEach(select => {
+                if (select.value) {
+                    const selectedOption = select.options[select.selectedIndex];
+                    const fee = parseInt(selectedOption.dataset.fee) || 0;
+                    const uniName = select.value.split(' (')[0];
+                    totalUniFees += fee;
+                    htmlApp += `
+                        <div class="fee-item institution-fee">
+                            <div class="fee-label"><span class="fee-icon">🎓</span>
+                                <span>${uniName}</span>
+                            </div>
+                            <span class="fee-amount" ${fee === 0 ? 'style="color:var(--success);"' : ''}>
+                                ${fee > 0 ? 'R' + fee : 'FREE'}
+                            </span>
+                        </div>`;
+                }
+            });
+
+            const colSelects = document.querySelectorAll('select[name^="college_"][name$="_Institution"]');
+            colSelects.forEach(select => {
+                if (select.value) {
+                    htmlApp += `
+                        <div class="fee-item institution-fee">
+                            <div class="fee-label"><span class="fee-icon">🏫</span>
+                                <span>${select.value}</span>
+                            </div>
+                            <span class="fee-amount" style="color:var(--success);">FREE</span>
+                        </div>`;
+                }
+            });
+
+            // ── Update Box 1 (VF fees) ──
+            const vfBox  = document.getElementById('feeSummaryVF');
+            const vfDiv  = document.getElementById('feeBreakdownVF');
+            const vfTotal = document.getElementById('feeTotalVF');
+            if (totalVarsityFriends > 0 || htmlVF !== '') {
+                vfDiv.innerHTML = htmlVF || '<p style="opacity:0.7;font-size:0.9rem;">Select a package above</p>';
+                vfTotal.textContent = 'R' + totalVarsityFriends;
+                vfBox.classList.add('active');
+            } else {
+                vfBox.classList.remove('active');
+            }
+
+            // ── Update Box 2 (Application fees) ──
+            const appBox  = document.getElementById('feeSummaryApp');
+            const appDiv  = document.getElementById('feeBreakdownApp');
+            const appTotal = document.getElementById('feeTotalApp');
+            if (htmlApp !== '') {
+                appDiv.innerHTML = htmlApp;
+                appTotal.textContent = 'R' + totalUniFees;
+                appBox.classList.add('active');
+            } else if (totalVarsityFriends > 0) {
+                appDiv.innerHTML = '<p style="opacity:0.7;font-size:0.85rem;">Select your universities above to see their application fees</p>';
+                appTotal.textContent = 'R0';
+                appBox.classList.add('active');
+            } else {
+                appBox.classList.remove('active');
+            }
+
+            // ── Store values for form submission ──
+            document.getElementById('totalVarsityFriendsFee').value = 'R' + totalVarsityFriends;
+            document.getElementById('totalUniFees').value = 'R' + totalUniFees;
+        }
+
+        // Update Total Price (Varsity Friends only)
+        function updateTotal() {
+            let total = 0;
+            
+            // University price
+            const uniSelected = document.querySelector('input[name="University_Package"]:checked');
+            if (uniSelected && uniSelected.value !== 'None') {
+                total += parseInt(uniSelected.dataset.price) || 0;
+            }
+            
+            // College price
+            const colSelected = document.querySelector('input[name="College_Package"]:checked');
+            if (colSelected && colSelected.value !== 'None') {
+                total += parseInt(colSelected.dataset.price) || 0;
+            }
+            
+            // Funding price
+            const fundSelected = document.querySelector('input[name="Funding_Package"]:checked');
+            if (fundSelected && fundSelected.value !== 'None') {
+                total += parseInt(fundSelected.dataset.price) || 0;
+            }
+            
+            document.getElementById('totalPrice').textContent = 'R' + total;
+            document.getElementById('totalPriceInput').value = 'R' + total;
+            
+            // Also update the fee summary
+            updateFeeSummary();
+        }
+
+        // Update File Name Display
+        function updateFileName(input) {
+            const nameDisplay = document.getElementById(input.id + 'Name');
+            if (input.files && input.files[0]) {
+                nameDisplay.textContent = 'Selected: ' + input.files[0].name;
+                nameDisplay.style.color = 'var(--success)';
+            } else {
+                nameDisplay.textContent = '';
+            }
+        }
+
+        // Validate Payment Proof
+        function validatePayment() {
+            const paymentInput = document.getElementById('payment');
+            const errorDiv = document.getElementById('paymentError');
+            const label = document.getElementById('paymentLabel');
+            
+            if (paymentInput.files && paymentInput.files[0]) {
+                errorDiv.style.display = 'none';
+                label.style.borderColor = 'var(--success)';
+                label.style.background = 'rgba(40, 167, 69, 0.05)';
+                return true;
+            } else {
+                errorDiv.style.display = 'block';
+                return false;
+            }
+        }
+
+        // Form Validation and Submit
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            // Check if at least one university package is selected
+            const uniSelected = document.querySelector('input[name="University_Package"]:checked');
+            if (!uniSelected || uniSelected.value === 'None') {
+                e.preventDefault();
+                alert('Please select a university package to continue.');
+                document.getElementById('universityOptions').scrollIntoView({ behavior: 'smooth' });
+                return false;
+            }
+            
+            // Validate payment proof
+            const paymentInput = document.getElementById('payment');
+            if (!paymentInput.files || !paymentInput.files[0]) {
+                e.preventDefault();
+                document.getElementById('paymentError').style.display = 'block';
+                document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+                return false;
+            }
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            // Form will submit to FormSubmit
+            return true;
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Real-time validation
+        document.querySelectorAll('input[required], select[required]').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.closest('.form-group').classList.add('error');
+                } else {
+                    this.closest('.form-group').classList.remove('error');
+                }
+            });
+            
+            field.addEventListener('input', function() {
+                if (this.value) {
+                    this.closest('.form-group').classList.remove('error');
+                }
+            });
+        });
+
+        // Initialize - select the "None" options by default
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial selected states
+            document.querySelector('#collegeOptions input[value="None"]').closest('.pricing-option').classList.add('selected');
+            document.querySelector('#fundingOptions input[value="None"]').closest('.pricing-option').classList.add('selected');
+        });
+    </script>
+</body>
+</html>
